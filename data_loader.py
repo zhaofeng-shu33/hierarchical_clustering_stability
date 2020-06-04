@@ -8,10 +8,12 @@ def load_data():
         f.readline()
         f.readline()
         st = f.readline()
-        value_list = st.rstrip().split('\t')[2:]
-        value_list = [float(i) for i in value_list]
-        X_train.append(value_list[:64])
-        X_test.append(value_list[-25:])
+        while st != '':
+            value_list = st.rstrip().split('\t')[2:]
+            value_list = [float(i) for i in value_list]
+            X_train.append(value_list[:63])
+            X_test.append(value_list[-25:])
+            st = f.readline()
     return (np.asarray(X_train), np.asarray(X_test))
 
 if __name__ == '__main__':
