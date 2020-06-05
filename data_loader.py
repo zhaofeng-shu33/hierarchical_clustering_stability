@@ -1,5 +1,5 @@
 import numpy as np
-def load_data(limit_num=300):
+def load_data(limit_num=600):
     X_train = []
     X_test = []
     with open('build/supplemental_data.txt') as f:
