@@ -12,6 +12,6 @@ Compared Method: Classical Hierarhical Clustering with two different metrics, In
 
 ### Download the dataset
 ```shell
-wget https://research.nhgri.nih.gov/microarray/Supplement/Images/supplemental_data -o supplemental_data.txt
+wget https://research.nhgri.nih.gov/microarray/Supplement/Images/supplemental_data -O supplemental_data.txt
 ```
 

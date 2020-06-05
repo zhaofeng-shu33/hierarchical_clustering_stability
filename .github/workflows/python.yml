@@ -18,6 +18,9 @@ jobs:
     - name: prepare the dataset
       run: |
         mkdir -p build && wget https://research.nhgri.nih.gov/microarray/Supplement/Images/supplemental_data -O build/supplemental_data.txt
+    - name: run unit test
+      run: |
+        python test.py
     - name: Run experiments
       run: |
         python experiment.py

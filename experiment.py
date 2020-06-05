@@ -1,27 +1,35 @@
 import argparse
-from data_loader import load_data
+
 from scipy.cluster.hierarchy import linkage
 from info_cluster import InfoCluster
 from ete3 import Tree
 
-def process_record(n, current_root_obj, Z, i):
-    left_child_id = int(Z[i,0])
-    right_child_id = int(Z[i,1])
-    left_root = current_root_obj.add_child(name=str(left_child_id))
-    if left_child_id >= n:
-        left_root_i = left_child_id - n
-        process_record(n, left_root, Z, left_root_i)
-    right_root = current_root_obj.add_child(name=str(right_child_id))
-    if right_child_id >= n:
-        right_root_i = right_child_id - n
-        process_record(n, right_root, Z, right_root_i)
+from core.brt import BayesianRoseTrees
+from data_loader import load_data
+from utility import scipy_linkage_obj_to_ete3_tree
+from utility import create_model
 
-def scipy_linkage_obj_to_ete3_tree(Z):
-    n = Z.shape[0] + 1
-    root = Tree(name=str(2 * n - 2))
-    i = n - 2
-    process_record(n, root, Z, i)
-    return root
+def convert_bhc_tree_to_ete_tree(pch):
+    return None
+
+def run_brt(data):
+    # Hyper-parameters (these values must be optimized!)
+    g = 10
+    scalling_factor = 0.001
+    alpha = 0.5
+
+    model = create_model(data, g, scalling_factor)
+
+    brt = BayesianRoseTrees(data,
+                            model,
+                            alpha,
+                            cut_allowed=False)
+
+    result = brt.build()
+    tree = convert_bhc_tree_to_ete_tree(result.pch)
+    return tree
+
+
 
 def ahc(data, method='average'):
     '''
