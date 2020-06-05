@@ -17,7 +17,7 @@ jobs:
         pip install -r requirements.txt
     - name: prepare the dataset
       run: |
-        mkdir -p build && wget https://research.nhgri.nih.gov/microarray/Supplement/Images/supplemental_data -o build/supplemental_data.txt
+        mkdir -p build && wget https://research.nhgri.nih.gov/microarray/Supplement/Images/supplemental_data -O build/supplemental_data.txt
     - name: Run experiments
       run: |
         python experiment.py
