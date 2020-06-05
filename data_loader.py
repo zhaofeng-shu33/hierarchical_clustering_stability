@@ -11,6 +11,8 @@ def load_data():
         while st != '':
             value_list = st.rstrip().split('\t')[2:]
             value_list = [float(i) for i in value_list]
+            if len(value_list) == 0:
+                break
             X_train.append(value_list[:63])
             X_test.append(value_list[-25:])
             st = f.readline()
