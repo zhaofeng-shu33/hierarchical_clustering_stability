@@ -24,7 +24,8 @@ def ic(data, metric='rbf'):
 def compute_score(alg, train_data, test_data):
     tree_1 = alg(train_data)
     tree_2 = alg(test_data)
-    metric_score = dendrogram_purity(tree_1, tree_2)
+    res = tree_1.compare(tree_2, unrooted=True)
+    metric_score = res['norm_rf']
     return metric_score
 
 if __name__ == '__main__':
