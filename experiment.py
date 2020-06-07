@@ -80,6 +80,8 @@ def run_all(use_cache=False):
 def plot_results(result_dic):
     for k,v in result_dic.items():
         plt.scatter(GRID, v, label=k)
+    plt.xlabel('number of samples')
+    plt.ylabel('RF distance')
     plt.legend()
     plt.savefig('build/plot_results.eps')
 
