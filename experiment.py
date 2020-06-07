@@ -9,8 +9,7 @@ from data_loader import load_data
 from utility import scipy_linkage_obj_to_ete3_tree
 from utility import create_model
 
-def convert_bhc_tree_to_ete_tree(pch):
-    return None
+
 
 def run_brt(data):
     # Hyper-parameters (these values must be optimized!)

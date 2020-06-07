@@ -6,6 +6,19 @@ from ete3 import Tree
 
 from core.prior import NormalInverseWishart
 
+def add_child(pch, tree_obj):
+    tree_id = int(tree_obj.name)
+    for i in pch[tree_id]:
+        tree_child = tree_obj.add_child(name=str(i))
+        add_child(pch, tree_child)
+
+def convert_bhc_tree_to_ete_tree(pch):
+    # found root
+    root_id = max(pch.keys())
+    root = Tree(name=str(root_id))
+    add_child(pch, root)
+    return root
+
 def process_record(n, current_root_obj, Z, i):
     left_child_id = int(Z[i,0])
     right_child_id = int(Z[i,1])
