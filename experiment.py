@@ -12,6 +12,7 @@ from data_loader import load_data
 from utility import scipy_linkage_obj_to_ete3_tree
 from utility import create_model
 from utility import convert_bhc_tree_to_ete_tree
+from utility import robinson_foulds
 
 from matplotlib import pyplot as plt
 
@@ -56,17 +57,17 @@ def compute_score(alg, train_data, test_data):
     if len(tree_1.children) == train_data.shape[0] \
         and len(tree_2.children) == train_data.shape[0]:
             print('Warning: trivial trees for n = %d' % train_data.shape[0])
-    res = tree_1.compare(tree_2, unrooted=True)    
+    res = robinson_foulds(tree_1, tree_2)    
     metric_score = res['norm_rf']
     return metric_score
 
-def run_all(restart=True):
-    if restart == False and os.path.exists('build/result_dic.pickle'):
+def run_all(use_cache=False):
+    if use_cache and os.path.exists('build/result_dic.pickle'):
         with open('build/result_dic.pickle', 'rb') as f:
             return pickle.load(f)
     X_train, X_test = load_data(600)
     result_dic = {}
-    for method in [ic, ahc]:
+    for method in [ic, ahc, brt]:
         method_name = re.search('function ([a-z]+) at', str(method)).group(1)
         result_dic[method_name] = []     
         for i in GRID:
@@ -85,6 +86,7 @@ def plot_results(result_dic):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--task', default='single', choices=['single', 'all'])
+    parser.add_argument('--use_cache', default=False, nargs='?', const=True, type=bool)
     parser.add_argument('--method', default='ic', choices=['ic', 'ahc', 'brt'])
     parser.add_argument('--limit_num', default=600, type=int, help="how many samples to use")
     args = parser.parse_args()
@@ -98,5 +100,5 @@ if __name__ == '__main__':
             score = compute_score(brt, X_train, X_test)
         print(score)
     elif args.task == 'all':
-        result_dic = run_all()
+        result_dic = run_all(args.use_cache)
         plot_results(result_dic)
