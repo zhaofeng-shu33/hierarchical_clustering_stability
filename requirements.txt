@@ -3,3 +3,4 @@ numpy
 info-cluster
 six
 matplotlib
+ete-robinson-foulds

@@ -12,7 +12,7 @@ from data_loader import load_data
 from utility import scipy_linkage_obj_to_ete3_tree
 from utility import create_model
 from utility import convert_bhc_tree_to_ete_tree
-from utility import robinson_foulds
+from ete_robinson_foulds import robinson_foulds
 
 from matplotlib import pyplot as plt
 
