@@ -219,5 +219,6 @@ def robinson_foulds(t1, t2, attr_t1="name", attr_t2="name",
             if not min_comparison or min_comparison[0] > rf:
                 min_comparison = [rf, max_parts, common_attrs, edges1, edges2, discard_t1, discard_t2]
         result = {}
+        result['rf'] = rf
         result["norm_rf"] = rf / max_parts
         return result

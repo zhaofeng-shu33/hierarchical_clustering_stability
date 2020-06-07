@@ -58,7 +58,7 @@ def compute_score(alg, train_data, test_data):
         and len(tree_2.children) == train_data.shape[0]:
             print('Warning: trivial trees for n = %d' % train_data.shape[0])
     res = robinson_foulds(tree_1, tree_2)    
-    metric_score = res['norm_rf']
+    metric_score = res['rf']
     return metric_score
 
 def run_all(use_cache=False):
