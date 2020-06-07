@@ -184,7 +184,7 @@ class BayesianRoseTrees(AbstractBayesianBasedHierarchicalClustering):
         for parent in pch.keys():
             for c in pch[parent]:
                 arc_list = np.append(arc_list, Arc(parent, c))
-
+        self.pch = pch
         return {
             'arc_list': arc_list,
             'hierarchy_cut': hierarchy_cut,
