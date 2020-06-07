@@ -1,5 +1,8 @@
 import argparse
 import re
+import pickle
+import os
+
 from scipy.cluster.hierarchy import linkage
 from info_cluster import InfoCluster
 from ete3 import Tree
@@ -57,7 +60,10 @@ def compute_score(alg, train_data, test_data):
     metric_score = res['norm_rf']
     return metric_score
 
-def run_all():
+def run_all(restart=True):
+    if restart == False and os.path.exists('build/result_dic.pickle'):
+        with open('build/result_dic.pickle', 'rb') as f:
+            return pickle.load(f)
     X_train, X_test = load_data(600)
     result_dic = {}
     for method in [ic, ahc]:
@@ -66,11 +72,14 @@ def run_all():
         for i in GRID:
             score = compute_score(method, X_train[:i,:], X_test[:i,:])
             result_dic[method_name].append(score)
+    with open('build/result_dic.pickle', 'wb') as f:
+        pickle.dump(result_dic, f)
     return result_dic
 
 def plot_results(result_dic):
     for k,v in result_dic.items():
-        plt.scatter(GRID, v, labels=k)
+        plt.scatter(GRID, v, label=k)
+    plt.legend()
     plt.savefig('build/plot_results.eps')
 
 if __name__ == '__main__':
