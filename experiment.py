@@ -78,11 +78,15 @@ def run_all(use_cache=False):
     return result_dic
 
 def plot_results(result_dic):
+    marker_list = ['o', '+', '*']
+    color_list = ['r', 'b', 'g']
+    cnt = 0
     for k,v in result_dic.items():
-        plt.scatter(GRID, v, label=k)
-    plt.xlabel('number of samples')
-    plt.ylabel('RF distance')
-    plt.legend()
+        plt.scatter(GRID, v, label=k, marker=marker_list[cnt], c=color_list[cnt])
+        cnt += 1
+    plt.xlabel('number of samples',fontsize=18)
+    plt.ylabel('RF distance',fontsize=18)
+    plt.legend(fontsize='x-large')
     plt.savefig('build/plot_results.eps')
 
 if __name__ == '__main__':
