@@ -81,8 +81,10 @@ def plot_results(result_dic):
     marker_list = ['o', '+', '*']
     color_list = ['r', 'b', 'g']
     cnt = 0
+    show_str = {'ic': 'GBIC', 'ahc': 'AHC', 'brt': 'BRT'}
     for k,v in result_dic.items():
-        plt.scatter(GRID, v, label=k, marker=marker_list[cnt], c=color_list[cnt])
+        plt.scatter(GRID, v, label=show_str[k], marker=marker_list[cnt],
+            s=36, c=color_list[cnt])
         cnt += 1
     plt.xlabel('number of samples',fontsize=18)
     plt.ylabel('RF distance',fontsize=18)
