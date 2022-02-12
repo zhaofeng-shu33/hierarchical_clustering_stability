@@ -19,7 +19,7 @@ from data_loader import load_data
 
 from matplotlib import pyplot as plt
 
-GRID = [100,200,300,400,500,600]
+GRID = [50, 100, 150, 200, 250, 300]
 
 def brt(data):
     # Hyper-parameters (these values must be optimized!)
