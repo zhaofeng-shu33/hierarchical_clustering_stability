@@ -2,17 +2,20 @@ import argparse
 import re
 import pickle
 import os
-
 from scipy.cluster.hierarchy import linkage
-from info_cluster import InfoCluster
-from ete3 import Tree
 
-from core.brt import BayesianRoseTrees
+try:
+    from info_cluster import InfoCluster
+    from ete3 import Tree
+    from ete_robinson_foulds import robinson_foulds
+    from core.brt import BayesianRoseTrees
+    from utility import scipy_linkage_obj_to_ete3_tree
+    from utility import create_model
+    from utility import convert_bhc_tree_to_ete_tree
+except ImportError:
+    pass
+
 from data_loader import load_data
-from utility import scipy_linkage_obj_to_ete3_tree
-from utility import create_model
-from utility import convert_bhc_tree_to_ete_tree
-from ete_robinson_foulds import robinson_foulds
 
 from matplotlib import pyplot as plt
 
@@ -83,17 +86,17 @@ def plot_results(result_dic):
     cnt = 0
     show_str = {'ic': 'GBIC', 'ahc': 'AHC', 'brt': 'BRT'}
     for k,v in result_dic.items():
-        plt.scatter(GRID, v, label=show_str[k], marker=marker_list[cnt],
-            s=36, c=color_list[cnt])
+        plt.plot(GRID, v, label=show_str[k], marker=marker_list[cnt],
+            c=color_list[cnt])
         cnt += 1
     plt.xlabel('number of samples',fontsize=18)
     plt.ylabel('RF distance',fontsize=18)
     plt.legend(fontsize='x-large')
-    plt.savefig('build/plot_results.eps')
+    plt.savefig('build/plot_results.pdf')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--task', default='single', choices=['single', 'all'])
+    parser.add_argument('--task', default='single', choices=['single', 'all', 'plot'])
     parser.add_argument('--use_cache', default=False, nargs='?', const=True, type=bool)
     parser.add_argument('--method', default='ic', choices=['ic', 'ahc', 'brt'])
     parser.add_argument('--limit_num', default=600, type=int, help="how many samples to use")
@@ -109,4 +112,8 @@ if __name__ == '__main__':
         print(score)
     elif args.task == 'all':
         result_dic = run_all(args.use_cache)
+        plot_results(result_dic)
+    elif args.task == 'plot':
+        with open('build/result_dic.pickle', 'rb') as f:
+            result_dic = pickle.load(f)
         plot_results(result_dic)
