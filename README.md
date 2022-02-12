@@ -10,8 +10,7 @@ Compared Method: Classical Hierarhical Clustering with two different metrics, In
 
 ## Steps
 
-### Download the dataset
-```shell
-wget https://research.nhgri.nih.gov/microarray/Supplement/Images/supplemental_data -O supplemental_data.txt
-```
-
+### The dataset
+`train.csv` and `test.csv`
+are extracted from the datastructure of `dendextend::khan$train`
+and `dendextend::khan$test` of the package `dendextend`, belonging to R programming language.
