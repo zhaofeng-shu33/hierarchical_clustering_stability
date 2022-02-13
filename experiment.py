@@ -41,7 +41,7 @@ def brt(data):
 
 def ahc(data, method='average'):
     '''
-        classical agglomerative hierarichical clustering
+        classical agglomerative hierarchical clustering
         data: num_of_samples x num_of_attributes
         return the ete3 tree representation of the clustering tree
     '''

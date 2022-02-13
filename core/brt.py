@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # License: GPL 3.0
-
+# based on https://github.com/caponetto/bhc
 import numpy as np
 
 from abc import ABC, abstractmethod

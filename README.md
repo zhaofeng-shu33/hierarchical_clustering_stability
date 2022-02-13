@@ -6,11 +6,11 @@ Methodology:  https://cran.r-project.org/web/packages/dendextend/vignettes/Clust
 
 Tree Distance Metric: normalized Robinson-Foulds distance
 
-Compared Method: Classical Hierarhical Clustering with two different metrics, Info-Clustering with a given metric, a third party method supporting data clustering.
+Compared Method: Classical Hierarchical Clustering with two different metrics, Info-Clustering with a given metric, a third party method supporting data clustering.
 
 ## Steps
 
 ### The dataset
 `train.csv` and `test.csv`
-are extracted from the datastructure of `dendextend::khan$train`
+are extracted from the data structure of `dendextend::khan$train`
 and `dendextend::khan$test` of the package `dendextend`, belonging to R programming language.
