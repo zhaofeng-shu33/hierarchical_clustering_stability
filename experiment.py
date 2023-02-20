@@ -84,16 +84,17 @@ def plot_results(result_dic):
     marker_list = ['o', '+', '*']
     color_list = ['r', 'b', 'g']
     cnt = 0
-    show_str = {'ic': 'GBIC', 'ahc': 'AHC', 'brt': 'BRT'}
+    show_str =  {'ic': 'HPSP', 'ahc': '系统聚类', 'brt': '贝叶斯玫瑰树'}
     for k,v in result_dic.items():
         plt.plot(GRID, v, label=show_str[k], marker=marker_list[cnt],
             c=color_list[cnt])
         cnt += 1
-    plt.xlabel('number of samples',fontsize=18)
-    plt.ylabel('RF distance',fontsize=18)
-    plt.legend(fontsize='x-large')
-    plt.savefig('build/plot_results.pdf')
-
+    plt.xlabel('样本数',fontsize=18, fontname='Songti SC')
+    plt.ylabel('距\n离',fontsize=18, fontname='Songti SC')
+    L = plt.legend(fontsize='x-large', framealpha=0.0)
+    plt.setp(L.texts, fontname='Songti SC')
+    plt.savefig('build/genes.pdf', transparent=True)
+    # plt.show()
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--task', default='single', choices=['single', 'all', 'plot'])
