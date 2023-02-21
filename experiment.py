@@ -89,12 +89,12 @@ def plot_results(result_dic):
         plt.plot(GRID, v, label=show_str[k], marker=marker_list[cnt],
             c=color_list[cnt])
         cnt += 1
-    plt.xlabel('样本数',fontsize=18, fontname='Songti SC')
-    plt.ylabel('距\n离',fontsize=18, fontname='Songti SC')
+    plt.xlabel('样本数',fontsize=18, fontname='SimSun')
+    plt.ylabel('距\n离',fontsize=18, fontname='SimSun', rotation=0, labelpad=10)
     L = plt.legend(fontsize='x-large', framealpha=0.0)
-    plt.setp(L.texts, fontname='Songti SC')
+    plt.setp(L.texts, fontname='SimSun')
     plt.savefig('build/genes.pdf', transparent=True)
-    # plt.show()
+    plt.show()
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--task', default='single', choices=['single', 'all', 'plot'])
