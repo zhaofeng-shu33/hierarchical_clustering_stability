@@ -80,25 +80,26 @@ def run_all(use_cache=False):
         pickle.dump(result_dic, f)
     return result_dic
 
-def plot_results(result_dic):
+def plot_results(result_dic, pic_format='pdf'):
     marker_list = ['o', '+', '*']
     color_list = ['r', 'b', 'g']
     cnt = 0
     show_str =  {'ic': 'HPSP', 'ahc': '系统聚类', 'brt': '贝叶斯玫瑰树'}
     for k,v in result_dic.items():
         plt.plot(GRID, v, label=show_str[k], marker=marker_list[cnt],
-            c=color_list[cnt])
+            c=color_list[cnt], linewidth=3, markersize=12)
         cnt += 1
     plt.xlabel('样本数',fontsize=18, fontname='SimSun')
     plt.ylabel('距\n离',fontsize=18, fontname='SimSun', rotation=0, labelpad=10)
     L = plt.legend(fontsize='x-large', framealpha=0.0)
     plt.setp(L.texts, fontname='SimSun')
-    plt.savefig('build/genes.pdf', transparent=True)
+    plt.savefig('build/genes.' + pic_format, transparent=True)
     plt.show()
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--task', default='single', choices=['single', 'all', 'plot'])
     parser.add_argument('--use_cache', default=False, nargs='?', const=True, type=bool)
+    parser.add_argument('--format', default='pdf', choices=['pdf', 'svg'])
     parser.add_argument('--method', default='ic', choices=['ic', 'ahc', 'brt'])
     parser.add_argument('--limit_num', default=600, type=int, help="how many samples to use")
     args = parser.parse_args()
@@ -113,8 +114,8 @@ if __name__ == '__main__':
         print(score)
     elif args.task == 'all':
         result_dic = run_all(args.use_cache)
-        plot_results(result_dic)
+        plot_results(result_dic, args.format)
     elif args.task == 'plot':
         with open('build/result_dic.pickle', 'rb') as f:
             result_dic = pickle.load(f)
-        plot_results(result_dic)
+        plot_results(result_dic, args.format)
